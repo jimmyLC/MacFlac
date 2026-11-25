@@ -15,6 +15,7 @@ Drop in any audio file (`mp3` / `m4a` / `wav` / `aiff` / `ape` / `wma` / `opus` 
 - 🛟 **Safe** — writes to a private temp folder and only renames into place after the result is verified (length and audio stream); originals are never touched.
 - 🗂 **Batch queue** — drag in files or whole folders, per-file progress, Finder reveal, retry.
 - 🌐 English / Traditional Chinese UI, native SwiftUI (Liquid Glass on macOS 26).
+- 🌙 **Pro (NT$90, one-time):** dark and follow-system appearance plus a Pro badge. Every conversion feature is free. See [docs/PRO.md](docs/PRO.md).
 - ⌨️ CLI included.
 
 > FLAC is lossless, but it can't restore detail a lossy source (MP3, AAC…) already threw away. Converting those gives a larger file with the same sound.

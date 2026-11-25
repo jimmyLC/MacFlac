@@ -16,7 +16,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 echo "==> 編譯 GUI (${ARCH})"
 swiftc -O -swift-version 5 -parse-as-library -target "$TARGET" \
-    Sources/Engine.swift Sources/Model.swift Sources/ToolSetup.swift Sources/App.swift \
+    Sources/Engine.swift Sources/Model.swift Sources/ToolSetup.swift Sources/AppAccess.swift Sources/ProLicense.swift Sources/AppearanceView.swift Sources/ProCelebration.swift Sources/App.swift \
     -o "$APP/Contents/MacOS/$APP_NAME"
 
 echo "==> 編譯 CLI"
@@ -43,6 +43,7 @@ iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
 
 echo "==> 語系資源"
 cp -R Resources/*.lproj "$APP/Contents/Resources/"
+cp Resources/ProConfiguration.json "$APP/Contents/Resources/ProConfiguration.json"
 
 echo "==> Info.plist"
 cat > "$APP/Contents/Info.plist" <<'PLIST'

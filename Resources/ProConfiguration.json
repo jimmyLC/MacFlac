@@ -1,0 +1,6 @@
+{
+  "enabled": false,
+  "apiBaseURL": "https://macflac-pay.jimmy-tools.com",
+  "environment": "production",
+  "publicKey": "BAN7V59DhhZPPz/+nYvMAA4lo4DYcr5q3V79f8QTs8c35S8YOQY97kOpYCf8BeIhEqo9zyfAE27uYU7jDu4xdQA="
+}

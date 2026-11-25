@@ -1,0 +1,39 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "macflac-payments-staging",
+  "main": "src/worker.mjs",
+  "account_id": "d4783f0367eb11b6cde514f3ff9b725e",
+  "compatibility_date": "2026-10-01",
+  // 不使用 workers.dev（網址會含帳號名稱）：一律走 jimmy-tools.com 自訂網域。
+  "workers_dev": false,
+  "observability": { "enabled": false },
+  "vars": {
+    "PAYMENT_ENV": "staging",
+    "CHECKOUT_ENABLED": "true",
+    "APPLE_PAY_ENABLED": "true",
+    "PUBLIC_BASE_URL": "https://macflac-pay-staging.jimmy-tools.com",
+    "CALLBACK_BASE_URL": "https://macflac-pay-staging.jimmy-tools.com"
+  },
+  "routes": [{ "pattern": "macflac-pay-staging.jimmy-tools.com", "custom_domain": true }],
+  // database_id 在建立 D1 資料庫（獲准後）才會填入。
+  "d1_databases": [{ "binding": "DB", "database_name": "macflac-payments-staging", "database_id": "TODO-create-d1-staging", "migrations_dir": "migrations" }],
+  "send_email": [{ "name": "EMAIL" }],
+  "triggers": { "crons": ["23 20 * * *"] },
+  "env": {
+    "production": {
+      "name": "macflac-payments",
+      "workers_dev": false,
+      "vars": {
+        "PAYMENT_ENV": "production",
+        "CHECKOUT_ENABLED": "true",
+        "APPLE_PAY_ENABLED": "true",
+        "PUBLIC_BASE_URL": "https://macflac-pay.jimmy-tools.com",
+        "CALLBACK_BASE_URL": "https://macflac-pay.jimmy-tools.com"
+      },
+      "routes": [{ "pattern": "macflac-pay.jimmy-tools.com", "custom_domain": true }],
+      "d1_databases": [{ "binding": "DB", "database_name": "macflac-payments", "database_id": "TODO-create-d1-production", "migrations_dir": "migrations" }],
+      "send_email": [{ "name": "EMAIL" }],
+      "triggers": { "crons": ["23 20 * * *"] }
+    }
+  }
+}
