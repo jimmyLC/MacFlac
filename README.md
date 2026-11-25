@@ -4,7 +4,7 @@
 
 Drop in any audio file (`mp3` / `m4a` / `wav` / `aiff` / `ape` / `wma` / `opus` / `ogg` / `dsf` / … or even a video) and get a `.flac` back. Several files convert at once, so a whole album takes seconds.
 
-[繁體中文說明 →](README.zh-TW.md)
+[繁體中文說明 →](README.zh-TW.md) · Website: [jimmy-tools.com/MacFlac](https://jimmy-tools.com/MacFlac/en/)
 
 ## Features
 

@@ -4,7 +4,7 @@
 
 把任何音樂檔(`mp3` / `m4a` / `wav` / `aiff` / `ape` / `wma` / `opus` / `ogg` / `dsf` …,甚至影片)拖進來就轉成 `.flac`。多檔同時轉換,整張專輯幾秒就好。
 
-[English →](README.md)
+[English →](README.md) · 官方網頁:[jimmy-tools.com/MacFlac](https://jimmy-tools.com/MacFlac/)
 
 ## 特色
 
