@@ -9,7 +9,7 @@
 ## 特色
 
 - 🚀 **快** — 多檔並行(預設每個效能核心一個,最多 8)。M 系列 Mac 上 40 分鐘的音樂約 1 秒轉完。
-- 🎵 **幾乎什麼都能轉** — MP3、AAC/M4A、WAV、AIFF、ALAC、APE、WavPack、WMA、Opus、Ogg、DSD、AC3/DTS,以及影片(mkv / mp4 / mov / ts …)的音軌。
+- 🎵 **幾乎什麼都能轉** — 已實測:MP3、AAC/M4A、ALAC、WAV、AIFF、CAF、WMA、Opus、Ogg Vorbis、TTA,以及影片(mkv / mp4 / mov …)的音軌。FFmpeg 能解碼的其他格式(APE、WavPack、DSD …)理論上可轉,但尚未逐一測試。不支援依 CUE 切軌:一個檔案轉成一個 FLAC。
 - 🎚 **依位元深度輸出** — 16-bit 維持 16-bit,24-bit／浮點來源輸出 24-bit,有損來源解成 16-bit。
 - 🏷 **保留標籤與封面** — 曲名、歌手、專輯與內嵌 JPEG/PNG 封面都會帶過去。
 - 🛟 **安全** — 先寫到私有暫存資料夾,驗證長度與音軌後才改名到位;原始檔絕不動。

@@ -9,7 +9,7 @@ Drop in any audio file (`mp3` / `m4a` / `wav` / `aiff` / `ape` / `wma` / `opus` 
 ## Features
 
 - 🚀 **Fast** — files convert in parallel (default: one per performance core, max 8). On an M-series Mac, 40 minutes of audio converts in about 1 second.
-- 🎵 **Almost anything in** — MP3, AAC/M4A, WAV, AIFF, ALAC, APE, WavPack, WMA, Opus, Ogg, DSD, AC3/DTS, and the audio track of video files (mkv / mp4 / mov / ts …).
+- 🎵 **Almost anything in** — tested: MP3, AAC/M4A, ALAC, WAV, AIFF, CAF, WMA, Opus, Ogg Vorbis, TTA, and the audio track of video files (mkv / mp4 / mov …). Anything else FFmpeg can decode (APE, WavPack, DSD …) should work but is not tested yet. No CUE splitting: one file in, one FLAC out.
 - 🎚 **Bit-depth aware** — 16-bit stays 16-bit, 24-bit / float sources become 24-bit, lossy sources decode to 16-bit.
 - 🏷 **Tags and cover art kept** — title/artist/album tags and embedded JPEG/PNG covers carry over.
 - 🛟 **Safe** — writes to a private temp folder and only renames into place after the result is verified (length and audio stream); originals are never touched.
