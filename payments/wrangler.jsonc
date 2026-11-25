@@ -31,7 +31,7 @@
         "CALLBACK_BASE_URL": "https://macflac-pay.jimmy-tools.com"
       },
       "routes": [{ "pattern": "macflac-pay.jimmy-tools.com", "custom_domain": true }],
-      "d1_databases": [{ "binding": "DB", "database_name": "macflac-payments", "database_id": "TODO-create-d1-production", "migrations_dir": "migrations" }],
+      "d1_databases": [{ "binding": "DB", "database_name": "macflac-payments", "database_id": "8b67fff0-c91d-4a37-9a6c-05a72b476d05", "migrations_dir": "migrations" }],
       "send_email": [{ "name": "EMAIL" }],
       "triggers": { "crons": ["23 20 * * *"] }
     }

@@ -9,10 +9,14 @@ Modeled on MacMP4. All conversion features stay free; **Pro only adds appearance
 - **Pay hub** (`pay.jimmy-tools.com`, code in the MacMP4 repo `payments-hub/`): SHOPLINE allows only a few webhooks, so the single webhook goes to the hub, which routes by order id prefix. MacFlac needs `F → MACFLAC` there.
 - Differences from MacMP4: the Worker is served on `macflac-pay.jimmy-tools.com` (a custom domain, `workers_dev: false`) so no Cloudflare account name appears in URLs; the email icon is hosted on the site (`/MacFlac/img/icon.png`) so the hub needs no new asset; the "Taiwan-issued cards only" notice was dropped (it came from ECPay and is unverified for SHOPLINE); contact is `contact@jimmy-tools.com`.
 
-## Local state (nothing is deployed yet)
+## Deployment state (2026-11-26)
 
-- `payments/.dev.vars.production` (git-ignored, mode 600) holds the **generated** `LICENSE_SIGNING_JWK`, `DATA_KEY`, `LOOKUP_KEY`. The three `SHOPLINE_*` values are still empty. **Back up this file privately**: losing the signing key means existing licenses can no longer be verified; losing the data keys means stored serials can't be decrypted.
-- `Resources/ProConfiguration.json` has the matching public key and `"enabled": false`, so the app shows "payment service not ready" until the release flips it to `true`.
+Live: Worker `macflac-payments` at `https://macflac-pay.jimmy-tools.com` (D1 `macflac-payments`, id in `payments/wrangler.jsonc`), pay hub routes `F → MACFLAC`, `ProConfiguration.json` has `"enabled": true`, SHOPLINE keys are shared with MacMP4 (same merchant). The data/lookup/signing keys are MacFlac's own.
+
+## Local files
+
+- `payments/.dev.vars.production` (git-ignored, mode 600) holds the **generated** `LICENSE_SIGNING_JWK`, `DATA_KEY`, `LOOKUP_KEY`. The `SHOPLINE_*` values were copied from the MacMP4 production file. **Back up this file privately**: losing the signing key means existing licenses can no longer be verified; losing the data keys means stored serials can't be decrypted.
+- `Resources/ProConfiguration.json` has the matching public key (`"enabled": true` since the v1.1.0 release).
 - `Tests/run.sh` runs the whole suite (entitlements, license signatures/Keychain/device binding, backend, CLI bit-exactness). `-D MACFLAC_PREVIEW_PRO` builds a Pro preview for UI checks; `build.sh` never sets it.
 
 ## Release gates (each needs the owner's explicit OK)
