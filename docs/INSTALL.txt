@@ -1,0 +1,21 @@
+MacFlac v1.0.0 — JimmyLC
+
+繁體中文
+1. 將 MacFlac.app 拖入 Applications（應用程式）。
+2. 需要 Apple Silicon（M 系列）Mac 與 macOS 13 或以上。
+3. 首次開啟會檢查 ffmpeg / ffprobe。已有 Homebrew 可在 App 中按「安裝 FFmpeg」。
+   也可自行安裝，返回 App 後自動重新檢查。手動指令：
+   brew install ffmpeg
+4. 這個版本尚未以 Apple Developer ID 簽署或經 Apple 公證。
+   若 macOS 阻擋開啟，請依「系統設定 → 隱私權與安全性」的提示個別允許開啟。
+5. 拖入音樂、確認輸出位置，再按「開始轉檔」。原始檔案會保留。
+
+English
+1. Drag MacFlac.app to Applications.
+2. Requires an Apple Silicon Mac and macOS 13 or later.
+3. First launch checks ffmpeg / ffprobe. With Homebrew, click Install FFmpeg in the app,
+   or install it yourself:
+   brew install ffmpeg
+4. This build is ad-hoc signed (no Developer ID / notarization). If macOS blocks it,
+   allow it in System Settings > Privacy & Security.
+5. Drop in music, check the output folder, then start. Originals are kept.

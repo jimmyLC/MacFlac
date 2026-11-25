@@ -1,0 +1,93 @@
+#!/bin/zsh
+# MacFlac 建置腳本:編譯 GUI App + CLI 並打包成 .app
+set -euo pipefail
+cd "$(dirname "$0")"
+
+APP_NAME="MacFlac"
+VERSION=$(cat VERSION)
+BUILD_DIR="build"
+APP="$BUILD_DIR/$APP_NAME.app"
+ARCH=$(uname -m)
+TARGET="${ARCH}-apple-macos13.0"
+
+echo "==> 清理舊建置"
+rm -rf "$BUILD_DIR"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+
+echo "==> 編譯 GUI (${ARCH})"
+swiftc -O -swift-version 5 -parse-as-library -target "$TARGET" \
+    Sources/Engine.swift Sources/Model.swift Sources/ToolSetup.swift Sources/App.swift \
+    -o "$APP/Contents/MacOS/$APP_NAME"
+
+echo "==> 編譯 CLI"
+swiftc -O -swift-version 5 -target "$TARGET" \
+    Sources/Engine.swift CLI/main.swift \
+    -o "$BUILD_DIR/macflac-cli"
+
+echo "==> 產生圖示"
+ICONSET="$BUILD_DIR/AppIcon.iconset"
+mkdir -p "$ICONSET"
+swift assets/makeicon.swift "$BUILD_DIR/icon_1024.png"
+gen() { sips -z "$1" "$1" "$BUILD_DIR/icon_1024.png" --out "$ICONSET/$2" >/dev/null; }
+gen 16   icon_16x16.png
+gen 32   icon_16x16@2x.png
+gen 32   icon_32x32.png
+gen 64   icon_32x32@2x.png
+gen 128  icon_128x128.png
+gen 256  icon_128x128@2x.png
+gen 256  icon_256x256.png
+gen 512  icon_256x256@2x.png
+gen 512  icon_512x512.png
+gen 1024 icon_512x512@2x.png
+iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
+
+echo "==> 語系資源"
+cp -R Resources/*.lproj "$APP/Contents/Resources/"
+
+echo "==> Info.plist"
+cat > "$APP/Contents/Info.plist" <<'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key><string>MacFlac</string>
+    <key>CFBundleDisplayName</key><string>MacFlac</string>
+    <key>CFBundleDevelopmentRegion</key><string>en</string>
+    <key>CFBundleExecutable</key><string>MacFlac</string>
+    <key>CFBundleIdentifier</key><string>local.jimmy.MacFlac</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>1.0</string>
+    <key>CFBundleVersion</key><string>1</string>
+    <key>NSHumanReadableCopyright</key><string>Copyright © 2026 JimmyLC.</string>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
+    <key>LSMinimumSystemVersion</key><string>13.0</string>
+    <key>NSHighResolutionCapable</key><true/>
+    <key>LSApplicationCategoryType</key><string>public.app-category.music</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeName</key><string>Audio File</string>
+            <key>CFBundleTypeRole</key><string>Viewer</string>
+            <key>LSHandlerRank</key><string>Alternate</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.audio</string>
+                <string>public.movie</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
+PLIST
+
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
+BUILD_NUMBER=$(git rev-list --count HEAD 2>/dev/null || echo 1)
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$APP/Contents/Info.plist"
+
+echo "==> Ad-hoc 簽名"
+codesign --force --deep --sign - "$APP" >/dev/null
+
+echo ""
+echo "✅ 建置完成:"
+echo "   App: $APP"
+echo "   CLI: $BUILD_DIR/macflac-cli"
